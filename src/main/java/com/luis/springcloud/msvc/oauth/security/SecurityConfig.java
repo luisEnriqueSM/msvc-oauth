@@ -163,6 +163,20 @@ public class SecurityConfig {
                 context.getClaims()
                         .claim("roles", principal.getAuthorities().stream()
                             .map(GrantedAuthority::getAuthority).collect(Collectors.toList()));
+                // Personalizar la duración del access_token según el rol
+                var authorities = principal.getAuthorities();
+                
+                long expirationTime;
+                if (authorities.stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+                    // Si el usuario tiene rol 'ADMIN', el access_token dura 15 minutos
+                    expirationTime = System.currentTimeMillis() / 1000 + Duration.ofMinutes(20).getSeconds();
+                } else {
+                    // Si no, el access_token dura 5 minutos
+                    expirationTime = System.currentTimeMillis() / 1000 + Duration.ofMinutes(5).getSeconds();
+                }
+                
+                // Establecer la expiración del token
+                context.getClaims().claim("exp", expirationTime);
             }
         };
     }
