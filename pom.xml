@@ -86,6 +86,11 @@
 			<groupId>io.micrometer</groupId>
 			<artifactId>micrometer-tracing-bridge-otel</artifactId>
 		</dependency>
+		<dependency>
+ 			<groupId>io.netty</groupId>
+ 			<artifactId>netty-resolver-dns-native-macos</artifactId>
+ 			<classifier>osx-aarch_64</classifier>
+ 		</dependency>
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
