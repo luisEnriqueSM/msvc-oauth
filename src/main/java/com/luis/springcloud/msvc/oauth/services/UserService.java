@@ -51,8 +51,8 @@ public class UserService implements UserDetailsService {
                     .stream()
                     .map(role -> new SimpleGrantedAuthority(role.getName()))
                     .collect(Collectors.toList());
-            logger.info("Se ha realizado el login con exito by username: {}", user);
-            tracer.currentSpan().tag("success.loggin", "Se ha realizado el login con exito by username: " + user) ;
+            logger.info("Se ha realizado el login con exito by username: {}", username);
+            tracer.currentSpan().tag("success.loggin", "Se ha realizado el login con exito by username: " + username) ;
 
             return new org.springframework.security.core.userdetails.User(user.getUsername(), 
                     user.getPassword(), user.isEnabled(), true, true, true, roles);
